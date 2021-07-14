@@ -59,6 +59,7 @@ jobs:
         if: steps.install.outcome == 'success' && steps.install.conclusion == 'success'
         uses: coverallsapp/github-action@master
         with:
+          base-path: .
           github-token: ${{ secrets.github_token }}
           flag-name: emacs-${{ matrix.emacs_version }}
           parallel: true
