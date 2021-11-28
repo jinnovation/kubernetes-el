@@ -52,6 +52,15 @@ jobs:
           cask build --verbose
           make build
 
+      - name: Static Tests
+        if: steps.install.outcome == 'success' && steps.install.conclusion == 'success'
+        uses: leotaku/elisp-check@master
+        with:
+          check: package-lint
+          file: "*.el"
+          ignore_warnings: false
+          warnings_as_errors: false
+
       - name: Test
         if: steps.install.outcome == 'success' && steps.install.conclusion == 'success'
         run: |
