@@ -59,6 +59,19 @@ install : $(TAR)
 		--eval "(package-install-file \"$(TAR)\")"
 
 
+itest: $(SRCS)
+	kind create cluster \
+		--verbosity 3 \
+		--config=test/integration/cluster.yaml \
+		--kubeconfig=./.kubeconfig.yaml \
+		--wait 30s
+	echo "TODO"
+	kind delete cluster \
+		--verbosity 3 \
+		--kubeconfig=./.kubeconfig.yaml \
+		--name=k8s-el-test
+	rm ./.kubeconfig.yaml
+
 test : $(SRCS)
 	${CASK} clean-elc
 	${CASK} exec ert-runner
